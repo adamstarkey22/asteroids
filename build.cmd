@@ -1,17 +1,20 @@
 @echo off
 
-:: execute from project root
 pushd "%~dp0"
 
-:: build project
-cmake --build build
+:: configure and build project
+cmake -S . -B build
+cmake --build build --config Debug
 echo Build finished with exit code %errorlevel%
-if %errorlevel% neq 0 exit /b
+if %errorlevel% neq 0 goto end
 
-:: run project
+:: run executable
+setlocal
+path = build\ext\SFML\lib\Debug;%path%
 echo Executing program...
 build\debug\asteroids.exe
 echo Program terminated with exit code %errorlevel%
+endlocal
 
-:: restore original calling directory
+:end
 popd
