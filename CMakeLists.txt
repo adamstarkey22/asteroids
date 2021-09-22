@@ -9,3 +9,7 @@ add_executable(
     asteroids
     src/main.cpp
 )
+
+add_subdirectory(ext/SFML)
+include_directories(asteroids ext/SFML/include)
+target_link_libraries(asteroids sfml-graphics)
